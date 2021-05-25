@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="text-center container-fluid">
+        <div class="row d-inline-flex container-fluid">
+                <div class="col-6 col-sm-4 col-md-3 p-2">
+                    <div class="card text-center shadow">
+                        <div class="card-header">
+                            <a href=""><strong></strong></a>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-img-top">
+                                <a href=""><img id="animeimage" src="" width="150" height="200"/></a>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            {% if not app.user %}
+                            {% else %}
+                                <a href="" class="btn btn-sm btn-outline-secondary">Modifier </a>
+                                <a href="" class="btn btn-sm btn-outline-secondary" onclick="return confirm('Etes-vous sur de vouloir le supprimer ?')">Supprimer</a> <br/>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                Il n'y a aucun anime pour l'instant, soyez le premier à en écrire un.
+        </div>
+    </div>
+
+    <br/>
+    <br/>
+
+    {%  if not app.user %}
+    {% else %}
+        <h1 id="add">Ajouter un Anime</h1>
+
+        <div id="submit">
+            <input type="submit" class="btn btn-info" value="Ajouter">
+        </div>
+
+    {% endif %}
+
+{% endblock %}
