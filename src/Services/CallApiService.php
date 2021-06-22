@@ -36,21 +36,10 @@ class CallApiService
 
         $response = $this->client->request(
             'GET',
-            'https://jikan1.p.rapidapi.com/anime/16498/episodes'
+            'https://api.jikan.moe/v3/search/anime?q=naruto'
+            //'https://coronavirusapi-france.now.sh/FranceLiveGlobalData'
         );
 
-        $response->setHeaders([
-            'x-rapidapi-key' => '4d7802f4b6msh07b72fe07074571p133070jsn5738ac32f923',
-            'x-rapidapi-host' => 'jikan1.p.rapidapi.com'
-        ]);
-
-        try {
-            $response = $response->send();
-
-            echo $response->getBody();
-        } catch (HttpException $ex) {
-            echo $ex;
-        }
 
         return $response->toArray();
         //return $getToken->toArray();
