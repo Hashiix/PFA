@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Services\CallApiService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,8 +13,18 @@ class AnimeDescriptionController extends AbstractController
     /**
      * @Route("/anime/{id}", name="description")
      */
-    public function description()
+    public function description(CallApiService $callApiService, int $id)
     {
-        return $this->render('anime_description/index.html.twig');
+        $anime = $callApiService->getAnime($id);
+
+        return $this->render(
+            'anime_description/index.html.twig',
+            [
+                'anime' => $anime,
+            ]
+        );
+
     }
+
+
 }

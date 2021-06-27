@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Miru | Profil de {{ app.user.username }}{% endblock %}
+
+{% block body %}
+    <div id="profilecontainer">
+        <div class="informations">
+            <div class="profilepicture">
+
+            </div>
+            <div class="personal">
+                <p>
+                    <strong>Password :</strong>
+                    <strong>Confirm password : </strong>
+                    <strong>Mail :</strong>
+                    <strong>Registration date : </strong>{{ user.registrationdate|date('m-d-Y') }}
+                </p>
+
+                <div id="submit" class="text-center">
+                    <button type="submit" class="btn btn-info">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

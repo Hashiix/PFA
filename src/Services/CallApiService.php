@@ -13,35 +13,67 @@ class CallApiService
         $this->client = $client;
     }
 
-    public function getData(): array
+    public function getAnime($id): array
     {
-        /*$getToken = $this->client->request(
-            'POST',
-            'https://anilistmikilior1v1.p.rapidapi.com/getAccessToken'
-        );
-
-        $getToken->setHeaders([
-            'content-type' => 'application/x-www-form-urlencoded',
-            'x-rapidapi-key' => '4d7802f4b6msh07b72fe07074571p133070jsn5738ac32f923',
-            'x-rapidapi-host' => 'Anilistmikilior1V1.p.rapidapi.com'
-        ]);
-
-        $getToken->setContentType('application/x-www-form-urlencoded');
-        $getToken->setPostFields([
-            'code' => '',
-            'clientId' => '5528',
-            'clientSecret' => 'OqhqV8bpSctmf4SouP3wth9x2Vara1RkgNnwBzBc',
-            'redirectUri' => 'http://127.0.0.1:8000/'
-        ]); */
 
         $response = $this->client->request(
             'GET',
-            'https://api.jikan.moe/v3/search/anime?q=naruto'
-            //'https://coronavirusapi-france.now.sh/FranceLiveGlobalData'
+            'https://api.jikan.moe/v3/anime/' . $id
         );
 
+        $statusCode = $response->getStatusCode();
+        $contentType = $response->getHeaders()['content-type'][0];
+        $content = $response->getContent();
+        $content = $response->toArray();
 
-        return $response->toArray();
-        //return $getToken->toArray();
+        return $content;
+    }
+
+    public function getTopanime(): array
+    {
+
+        $response = $this->client->request(
+            'GET',
+            'https://api.jikan.moe/v3/top/anime//'
+        );
+
+        $statusCode = $response->getStatusCode();
+        $contentType = $response->getHeaders()['content-type'][0];
+        $content = $response->getContent();
+        $content = $response->toArray();
+
+        return $content;
+    }
+
+    public function getWeekanime(): array
+    {
+
+        $response = $this->client->request(
+            'GET',
+            'https://api.jikan.moe/v3/schedule/'
+        );
+
+        $statusCode = $response->getStatusCode();
+        $contentType = $response->getHeaders()['content-type'][0];
+        $content = $response->getContent();
+        $content = $response->toArray();
+
+        return $content;
+    }
+
+    public function getUpcoming(): array
+    {
+
+        $response = $this->client->request(
+            'GET',
+            'https://api.jikan.moe/v3/season/later'
+        );
+
+        $statusCode = $response->getStatusCode();
+        $contentType = $response->getHeaders()['content-type'][0];
+        $content = $response->getContent();
+        $content = $response->toArray();
+
+        return $content;
     }
 }

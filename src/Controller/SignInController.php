@@ -41,8 +41,14 @@ class SignInController extends AbstractController
             return $this->redirectToRoute('app_login_login');
         }
 
-        return $this->render('sign_in/index.html.twig', [
-            'signInForm' => $form->createView(),
-        ]);
+        return $this->render(
+            'sign_in/index.html.twig',
+            [
+                'signInForm' => $form->createView(),
+            ]
+        );
+
     }
+
+
 }

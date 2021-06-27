@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Jikan\Jikan;
-use Jikan\Helper\Constants;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -22,23 +21,31 @@ class ListController extends AbstractController
      */
     public function index(CallApiService $callApiService)
     {
-        $jikan = new Jikan();
-        $jikanTopTitles = new Jikan();
-        $topAnimeTitles = [];
+        $topAnime      = $callApiService->getTopanime();
+        $weekSchedule  = $callApiService->getWeekanime();
+        $upcomingAnime = $callApiService->getUpcoming();
+        $weekSchedule  = $callApiService->getWeekanime();
 
-        $topAnime = $jikan->Top("anime", 0);
+        $allWeekMerged = array_merge(
+            $weekSchedule['monday'],
+            $weekSchedule['tuesday'],
+            $weekSchedule['wednesday'],
+            $weekSchedule['thursday'],
+            $weekSchedule['friday'],
+            $weekSchedule['saturday'],
+            $weekSchedule['sunday']
+        );
 
+        return $this->render(
+            'list/index.html.twig',
+            [
+                'top'      => $topAnime,
+                'week'     => $allWeekMerged,
+                'upcoming' => $upcomingAnime,
+            ]
+        );
 
-        /*foreach ($topAnime->response['top'] as $anime ) {
-            array_push($topAnimeTitles, ($jikanTopTitles->Anime($anime['mal_id'])->response['title_english']));
-            dd($topAnimeTitles);
-        }*/
-
-        //dd($topAnimeTitles);
-        //dd($topAnime->response['top']);
-
-        return $this->render('list/index.html.twig', [
-            'top' => $topAnime,
-        ]);
     }
+
+
 }

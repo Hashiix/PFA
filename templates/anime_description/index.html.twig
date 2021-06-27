@@ -1,13 +1,56 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}PFA - {% endblock %}
+{% block title %}Miru | {{ anime.title }} {% endblock %}
 
 {% block body %}
-    <div id="anime">
-        <div>
-            <img id="animeimage" src="" width="250" height="350"/>
+    <div id="animecontainer">
+        <div class="animedescription">
+            <h1>{{ anime.title }}</h1>
+            <div class="headeranime">
+                <div class="img">
+                    <img src="{{ anime.image_url }}" alt="">
+                </div>
+                <div class="synopsis">
+                    <p>
+                        {{ anime.synopsis }}
+                        <br/>
+                        <br/>
+                        <strong>Genres :</strong>
+                        {% for genre in anime.genres %}
+                            {% if loop.last %}
+                                {{ genre.name }}
+                            {% else %}
+                                {{ genre.name }},
+                            {% endif %}
+                        {% endfor %}
+                        <br/>
+                        <br/>
+                    </p>
+                    <div class="buttons">
+                        <button class="btn btn-info" style="margin-left: 2%"><i class="fas fa-eye"></i> Watching</button>
+                        <button class="btn btn-success" style="margin-left: 2%"><i class="fas fa-check"></i> Watched</button>
+                        <button class="btn btn-warning" style="margin-left: 2%"><i class="far fa-calendar-check"></i> Planning</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="description">
+        <div class="animecontent">
+            <div class="stats">
+                <strong>Watching : </strong><br/>
+                <strong>Watched : </strong><br/>
+                <strong>Planning : </strong>
+                <br/>
+                <br/>
+                <strong>Premiered : </strong>{{ anime.premiered }}<br/>
+                <strong>Studio : </strong>{% for studio in anime.studios %}{% if loop.last %}{{ studio.name }}{% else %}{{ studio.name }} - {% endif %}{% endfor %}<br/>
+                <strong>Licence : </strong>{% for licensor in anime.licensors %}{% if loop.last %}{{ licensor.name }}{% else %}{{ licensor.name }} - {% endif %}{% endfor %}<br/>
+                <strong>Duration : </strong>{{ anime.duration }}
+            </div>
+            <div class="trailer">
+                <iframe width="800" height="450"
+                        src="{{ anime.trailer_url }}">
+                </iframe>
+            </div>
         </div>
     </div>
 {% endblock %}
