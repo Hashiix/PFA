@@ -1,24 +1,65 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Miru | Profil de {{ app.user.username }}{% endblock %}
+{% block title %}Miru | {{ user.username }}'s profile{% endblock %}
 
 {% block body %}
     <div id="profilecontainer">
+        <h1 style="font-weight: bold">{{ user.username }}</h1>
+        <form action="{{ path("profile", {id: user.id}) }}" method="post">
         <div class="informations">
+            {{ form_start(form) }}
             <div class="profilepicture">
-
+                <img src="{{ asset('img/profile.jpg') }}" alt="" width="200px" height="200px"><br/>
+                {{ form_row(form.avatar, {'label':false, 'required':false}) }}
             </div>
             <div class="personal">
-                <p>
-                    <strong>Password :</strong>
-                    <strong>Confirm password : </strong>
-                    <strong>Mail :</strong>
-                    <strong>Registration date : </strong>{{ user.registrationdate|date('m-d-Y') }}
-                </p>
-
+                <div style="text-align: right">
+                    <strong>Password :</strong><br/>
+                    <strong>Confirm password : </strong><br/>
+                    <strong>Mail :</strong><br/>
+                    <strong>Registration date : </strong>
+                </div>
+                <div class="text-center">
+                    {{ form_start(form) }}
+                    {{ form_row(form.password, {'label':false, 'required':false}) }}
+                    {{ form_row(form.passwordVerify, {'label':false, 'required':false}) }}
+                    {{ form_row(form.email, {'label':false, 'required':false}) }}
+                    {{ user.registrationdate|date('m-d-Y') }}
+                </div>
                 <div id="submit" class="text-center">
                     <button type="submit" class="btn btn-info">Update</button>
                 </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+        </form>
+        <div class="recap">
+            <div class="watching">
+                <h2 style="font-weight: bold">Watching</h2>
+                {% for w in wList %}
+                    <div class="profilelist">
+                        <img src="{{ w.image_url }}" alt="" width="60px">
+                        <p><strong>{{ w.title }}</strong></p>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="complete">
+                <h2 style="font-weight: bold">Complete</h2>
+                {% for c in cList %}
+                    <div class="profilelist">
+                        <img src="{{ c.image_url }}" alt="" width="60px">
+                        <p><strong>{{ c.title }}</strong></p>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="planning">
+                <h2 style="font-weight: bold">Planning</h2>
+                {% for p in pList %}
+                    <div class="profilelist">
+                        <img src="{{ p.image_url }}" alt="" width="60px">
+                        <p><strong>{{ p.title }}</strong></p>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>

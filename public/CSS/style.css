@@ -306,6 +306,13 @@ li a:hover {
     justify-content: center;
 }
 
+.buttons form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
 /* --Profile-- */
 
 #profilecontainer {
@@ -316,6 +323,47 @@ li a:hover {
     flex-direction: column;
     background-color: white;
     box-shadow: 0 0 29px rgba(49,54,68,.25);
+    min-height: 100vh;
+}
+
+.informations {
+    display: flex;
+}
+
+.profilepicture {
+    width: 50%;
+}
+
+.personal {
+    line-height: 2.5;
+    display: flex;
+    width: 50%;
+    justify-content: space-around;
+}
+
+.recap {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 5%;
+}
+
+.watching,
+.complete,
+.planning {
+    width: 33%;
+    text-align: center;
+}
+
+.profilelist {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-top: 3%;
+    padding: 3px;
+}
+.profilelist img {
+    margin-right: 5%;
 }
 
 /* --Login/Sign in-- */

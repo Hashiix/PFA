@@ -36,7 +36,7 @@ class Member implements UserInterface
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Length(
      *     min= "8",
      *     max= "50",
@@ -47,7 +47,7 @@ class Member implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Email()
      */
     private $email;
@@ -64,6 +64,33 @@ class Member implements UserInterface
      * )
      */
     public $passwordVerify;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $avatar;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Watching::class, mappedBy="member")
+     */
+    private $watchings;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Complete::class, mappedBy="member")
+     */
+    private $completes;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Planning::class, mappedBy="member")
+     */
+    private $plannings;
+
+    public function __construct()
+    {
+        $this->watchings = new ArrayCollection();
+        $this->completes = new ArrayCollection();
+        $this->plannings = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -87,7 +114,7 @@ class Member implements UserInterface
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(?string $password): self
     {
         $this->password = $password;
 
@@ -131,4 +158,99 @@ class Member implements UserInterface
     {
         return ['ROLE_USER'];
     }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Watching[]
+     */
+    public function getWatchings(): Collection
+    {
+        return $this->watchings;
+    }
+
+    public function addWatching(Watching $watching): self
+    {
+        if (!$this->watchings->contains($watching)) {
+            $this->watchings[] = $watching;
+            $watching->addMember($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWatching(Watching $watching): self
+    {
+        if ($this->watchings->removeElement($watching)) {
+            $watching->removeMember($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Complete[]
+     */
+    public function getCompletes(): Collection
+    {
+        return $this->completes;
+    }
+
+    public function addComplete(Complete $complete): self
+    {
+        if (!$this->completes->contains($complete)) {
+            $this->completes[] = $complete;
+            $complete->addMember($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComplete(Complete $complete): self
+    {
+        if ($this->completes->removeElement($complete)) {
+            $complete->removeMember($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Planning[]
+     */
+    public function getPlannings(): Collection
+    {
+        return $this->plannings;
+    }
+
+    public function addPlanning(Planning $planning): self
+    {
+        if (!$this->plannings->contains($planning)) {
+            $this->plannings[] = $planning;
+            $planning->addMember($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlanning(Planning $planning): self
+    {
+        if ($this->plannings->removeElement($planning)) {
+            $planning->removeMember($this);
+        }
+
+        return $this;
+    }
+    
+
 }

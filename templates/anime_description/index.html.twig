@@ -27,18 +27,24 @@
                         <br/>
                     </p>
                     <div class="buttons">
-                        <button class="btn btn-info" style="margin-left: 2%"><i class="fas fa-eye"></i> Watching</button>
-                        <button class="btn btn-success" style="margin-left: 2%"><i class="fas fa-check"></i> Watched</button>
-                        <button class="btn btn-warning" style="margin-left: 2%"><i class="far fa-calendar-check"></i> Planning</button>
+                        {% if not app.user %}
+                        {% else %}
+                            <form action="" method="post">
+                                <input type="hidden" value="{{ anime.mal_id }}" name="animeid">
+                                <button type="submit" name="watching" value="watching" class="btn btn-info" style="margin-left: 2%"><i class="fas fa-eye"></i> Set as Watching</button>
+                                <button type="submit" name="complete" value="complete" class="btn btn-success" style="margin-left: 2%"><i class="fas fa-check"></i> Set as Complete</button>
+                                <button type="submit" name="planning" value="planning" class="btn btn-warning" style="margin-left: 2%"><i class="far fa-calendar-check"></i> Set as Planning</button>
+                            </form>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
         <div class="animecontent">
             <div class="stats">
-                <strong>Watching : </strong><br/>
-                <strong>Watched : </strong><br/>
-                <strong>Planning : </strong>
+                <strong>Watching : </strong>{{ wCount|length }}<br/>
+                <strong>Complete : </strong>{{ cCount|length }}<br/>
+                <strong>Planning : </strong>{{ pCount|length }}
                 <br/>
                 <br/>
                 <strong>Premiered : </strong>{{ anime.premiered }}<br/>
