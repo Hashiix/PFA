@@ -1,6 +1,6 @@
 # Miru is a year-end project developed with Symfony and using Jikan API for the anime catalog.
 
-![alt text](https://nsa40.casimages.com/img/2021/06/28/210628050052515216.png)
+![alt text](https://nsa40.casimages.com/img/2021/06/28/210628052549136134.jpg)
 
 In Miru you have access to the best rated animes, the week's releases and the upcoming releases.
 
