@@ -12,16 +12,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class AnimeDescriptionController extends AbstractController
 {
     /**
      * @Route("/anime/{id}", name="description")
      */
-    public function description(CallApiService $callApiService, EntityManagerInterface $em, int $id, Request $request, UserInterface $user)
+    public function description(CallApiService $callApiService, EntityManagerInterface $em, int $id, Request $request)
     {
         $anime = $callApiService->getAnime($id);
+        $user = $this->getUser();
 
         $watching = $request->request->get('watching');
         $complete = $request->request->get('complete');

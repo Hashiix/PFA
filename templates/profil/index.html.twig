@@ -13,13 +13,13 @@
                 {{ form_row(form.avatar, {'label':false, 'required':false}) }}
             </div>
             <div class="personal">
-                <div style="text-align: right">
+                <div style="text-align: right; width: 50%">
                     <strong>Password :</strong><br/>
                     <strong>Confirm password : </strong><br/>
                     <strong>Mail :</strong><br/>
                     <strong>Registration date : </strong>
                 </div>
-                <div class="text-center">
+                <div class="text-center" style="width: 50%">
                     {{ form_start(form) }}
                     {{ form_row(form.password, {'label':false, 'required':false}) }}
                     {{ form_row(form.passwordVerify, {'label':false, 'required':false}) }}
@@ -38,8 +38,10 @@
                 <h2 style="font-weight: bold">Watching</h2>
                 {% for w in wList %}
                     <div class="profilelist">
-                        <img src="{{ w.image_url }}" alt="" width="60px">
-                        <p><strong>{{ w.title }}</strong></p>
+                        <a href="{{ path("description", {id: w.mal_id}) }}">
+                            <img src="{{ w.image_url }}" alt="" width="60px">
+                            <p><strong>{{ w.title }}</strong></p>
+                        </a>
                     </div>
                 {% endfor %}
             </div>
@@ -47,8 +49,10 @@
                 <h2 style="font-weight: bold">Complete</h2>
                 {% for c in cList %}
                     <div class="profilelist">
-                        <img src="{{ c.image_url }}" alt="" width="60px">
-                        <p><strong>{{ c.title }}</strong></p>
+                        <a href="{{ path("description", {id: c.mal_id}) }}">
+                            <img src="{{ c.image_url }}" alt="" width="60px">
+                            <p><strong>{{ c.title }}</strong></p>
+                        </a>
                     </div>
                 {% endfor %}
             </div>
@@ -56,8 +60,10 @@
                 <h2 style="font-weight: bold">Planning</h2>
                 {% for p in pList %}
                     <div class="profilelist">
-                        <img src="{{ p.image_url }}" alt="" width="60px">
-                        <p><strong>{{ p.title }}</strong></p>
+                        <a href="{{ path("description", {id: p.mal_id}) }}">
+                            <img src="{{ p.image_url }}" alt="" width="60px">
+                            <p><strong>{{ p.title }}</strong></p>
+                        </a>
                     </div>
                 {% endfor %}
             </div>
